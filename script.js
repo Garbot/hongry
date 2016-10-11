@@ -156,7 +156,10 @@ function gotoMap(){
 }
 
 $(".menu-option").click(function(){
-	$(".menu-option").toggleClass("selected");
+	if(!($(this).hasClass("selected")))
+	{
+		$(".menu-option").toggleClass("selected");
+	}
 });
 
 $(".init").click(function(){
