@@ -1,0 +1,29 @@
+/* http://zerosixthree.se/vertical-align-anything-with-just-3-lines-of-css/ */
+/* see above */
+.fullscreen {
+	position: relative;
+	top: 40%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+#map {
+	height: 100%;
+	width: 100%;
+	display: none;
+}
+
+.selected {
+	background-color: #31b0d5;
+	border-color: #269abc;
+}
+
+/* hide infowindow */
+.gm-style-iw + div {display: none;}

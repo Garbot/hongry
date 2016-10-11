@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Hongry</title>
+		<!--map should be displayed full screen, non-resizable-->
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<meta charset="utf-8">
+		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link href="style.css" rel="stylesheet">
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+		
+	</head>
+	<body>
+		<div class="container-fluid centering text-center fullscreen" id="control">
+			<div class="container-fluid centerpiece">
+				<div class="row">
+					<h4>I'm Hongry</h4>
+				</div>
+				<div class="container centering text-center">
+					<div class="row">
+						<div class="col-xs-12">
+							<!--id will be used for Google Maps search query later-->
+							<span class="glyphicon glyphicon-user menu-option btn btn-default btn-lg" id="walk"></span></button><span class="glyphicon glyphicon-road menu-option btn btn-default selected btn-lg" id="drive"></span>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-xs-12">
+							<button class="btn btn-success btn-lg init">Go</button>
+						</div>
+					</div>
+				</div>
+			</div class="container-fluid centerpiece">
+			<br>
+			<div class="container-fluid">
+				<div class="row">
+					Solving first world problems since 2016.
+				</div>
+			</div>
+		</div>
+		<div id="map">
+		<!--Space used for Maps API output-->
+		<!--Note that divs usually take their width from their containing element, and empty divs usually have 0 height. For this reason, you must always set a height on the <div> explicitly.-->
+		</div>
+		<script src="script.js"></script>
+		<!--change callback to initMap for troubleshooting-->
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC1esCeAIHUljEEc-ZCuoogjxN14vHL_o&libraries=places" async defer></script
+	</body>
+</html>
