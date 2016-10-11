@@ -164,6 +164,6 @@ $(".menu-option").click(function(){
 
 $(".init").click(function(){
 	//lookup in travel table radial distance in which to search for food.
-	travelDistance = travelTable[$(".selected").attr('id')];
+	travelDistance = travelTable[$(".selected").children(0).attr('id')];
 	gotoMap();
 });
