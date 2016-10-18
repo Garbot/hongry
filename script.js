@@ -36,8 +36,8 @@ function initMap(myCallback){
 	function success(){
 		//lat and lng will be passed to maps API
 		userLoc = {
-			lat: 35.7796, //position.coords.latitude,
-			lng: -78.6382  //position.coords.longitude
+			lat: position.coords.latitude,
+			lng: position.coords.longitude
 		}
 		console.log('Latitude is ' + userLoc.lat + ', Longitude is ' + userLoc.lng + '.');
 	
