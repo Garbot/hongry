@@ -24,20 +24,20 @@ var travelTable =
 
 
 
-function initMap(position){
+function initMap(myCallback){
 
 	//if browser not supported, display error.
 	if(!navigator.geolocation)
 	{
-		console.log("error - browser not supported");
+		alert("Please enable geolocation to use this service.");
 	}
 	
 	//passed as callback function to navigator.geolocation.getCurrentPosition()
-	function success(position){
+	function success(){
 		//lat and lng will be passed to maps API
 		userLoc = {
-			lat: position.coords.latitude,
-			lng: position.coords.longitude
+			lat: 35.7796, //position.coords.latitude,
+			lng: -78.6382  //position.coords.longitude
 		}
 		console.log('Latitude is ' + userLoc.lat + ', Longitude is ' + userLoc.lng + '.');
 	
@@ -75,6 +75,7 @@ function initMap(position){
 	//passed as callback function to navigator.geolocation.getCurrentPosition()
 	function error()
 	{
+		alert("Please enable geolocation to use this service.");
 		return false;
 	}
 	
@@ -82,14 +83,12 @@ function initMap(position){
 	navigator.geolocation.getCurrentPosition(success, error);
 	///////////////////
 	
-
+	//execute callback function (used for loading transitions)
+	myCallback();
 }
 
 function callback(results, status) {
 	if(status === google.maps.places.PlacesServiceStatus.OK){
-		for(var i = 0; i < results.length; i++){
-			console.log("OK")
-		}
 		//get place_id of a random item from the results.
 		var rando = results[Math.floor(Math.random()*results.length)].place_id;
 		var detailsRequest = { placeId: rando };
@@ -102,16 +101,16 @@ function callback(results, status) {
 			}
 			console.log(place);
 		});
-		
-		
+
+	
+
 		//create marker from random result.
 		//createMarker();
 	}
 }
 
-function createMarker(place) {
+function createMarker(place, callback) {
 	var placeLoc = place.geometry.location;
-	console.log("placeLoc: " + placeLoc);
 	marker = new google.maps.Marker({
 		map: map,
 		position: place.geometry.location
@@ -123,7 +122,7 @@ function createMarker(place) {
 	{
 		priceString += "$";
 	}
-	
+
 	//example string of directions URL : https://www.google.com/maps/dir/'35.7951739,-78.6512208'/6019+Applewood+Ln,+Raleigh,+NC+27609/@35.82923,-78.6665861
 	//set content of info window based on place.
 	//TODO - add directions, calculate distance.
@@ -131,9 +130,11 @@ function createMarker(place) {
 	infowindow.setContent("<h2> You should eat at " + place.name + ".</h2>"
 								 + place.formatted_address + "<br>"
 								 + place.rating + " Stars - " + priceString + " - " + "<a href=" + place.website + ">Website</a><br>"
-								 + "<a class=\"btn btn-default\" href=\"https://www.google.com/maps/dir/" + "'" + userLoc.lat + "," + userLoc.lng + "'/" + place.formatted_address + "\"" + ">OK!</a><a class=\"btn btn-default\" onclick='initMap()'>Nah</a>");
+								 + "<a class=\"btn btn-default\" href=\"https://www.google.com/maps/dir/" + "'" + userLoc.lat + "," + userLoc.lng + "'/" + place.formatted_address + "\"" + ">OK!</a><a class=\"btn btn-default\" onclick='reload()'>Nah</a>");
 	infowindow.open(map, marker);
 	
+	
+
 	//prevent user from zooming/moving the map/etc
 	map.setOptions({
 		center: placeLoc,
@@ -146,12 +147,17 @@ function createMarker(place) {
 		clickableIcons: false,
 		zoomControl: false
 	});
+
+	
+
 }
 
 function gotoMap(){
 	$("#control").fadeOut(600, function(){
-		$("#map").fadeIn(600)
-		initMap();
+		console.log("Test");
+		$(".loader").fadeIn(600);
+		initMap(hideLoader);		//pass function to hide loading screen as a callback, execute when finished.
+
 	});
 }
 
@@ -165,5 +171,25 @@ $(".menu-option").click(function(){
 $(".init").click(function(){
 	//lookup in travel table radial distance in which to search for food.
 	travelDistance = travelTable[$(".selected").children(0).attr('id')];
-	gotoMap();
+	gotoMap(hideLoader);
+});
+
+/*ANIMATIONS*/
+
+//hide load screen when map is loaded.
+function hideLoader(){
+	$(".loader").fadeOut(600);
+	$("#map").fadeIn(600);
+}
+
+//re-display load icon when map is loading.
+function reload(){
+	$('.loader').fadeIn(600, function(){
+		initMap(hideLoader);
+	});
+}
+
+
+$(window).load(function(){
+	$(".loader").fadeOut(600)
 });
