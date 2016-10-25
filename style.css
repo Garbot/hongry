@@ -33,9 +33,9 @@ html, body {
 	border-color: #269abc;
 }
 
-/* hide infowindow */
+/* hide infowindow 
 .gm-style-iw + div {display: none;}
-
+*/
 
 .transportation-btn
 {
